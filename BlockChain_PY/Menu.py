@@ -7,12 +7,16 @@ class Menu:
 
     def abrir_menu(self):
         st.title("Caixa eletrônico")
-        choice = st.radio("Escolha uma opção:", ["Fazer transação", "Visualizar histórico de transações", "Pesquisar transação"])
 
-        if choice == "Fazer transação":
+        tabs = st.tabs(["Fazer Transação", "Histórico", "Pesquisar"])
+        with tabs[0]:
+                st.header("Fazer transação")
                 self.t.fazer_transacao()
-        elif choice == "Visualizar histórico de transações":
+        with tabs[1]:
+                st.header("Visualizar histórico de transações")
                 self.t.visualizar_historico()
-        elif choice == "Pesquisar transação":
+        with tabs[2]:
+                st.header("Pesquisar transação")
                 self.t.pesquisar_transacao()
+
            

@@ -1,5 +1,6 @@
 from Block import Block
 from typing import List
+from datetime import datetime
 import time
 
 class Blockchain:
@@ -69,3 +70,18 @@ class Blockchain:
 
     def __str__(self) -> str:
         return '\n'.join(str(block) for block in self.blocks)
+    
+    def blockchain_to_dict(self):
+        data = []
+        for block in self.get_blocks():
+            block_data = {
+                "Index": block.get_index(),
+                "Timestamp": datetime.fromtimestamp(block.get_timestamp()).strftime('%Y-%m-%d %H:%M:%S'),
+                "Previous Hash": block.get_previous_hash(),
+                "Data": block.get_data(),
+                "Hash": block.get_hash(),
+                "Nonce": block.nonce  # Asegúrate de tener un método para obtener el nonce si no es público
+            }
+            data.append(block_data)
+        return data
+     
