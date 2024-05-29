@@ -2,19 +2,15 @@ import streamlit as st
 from Blockchain import Blockchain
 from Utils import Utils
 
-def blockchain_to_dataframe(blockchain):
-    data = []
-    for block in blockchain.chain:
-        for transaction in block.transactions:
-            tx_data = {
-                "Block Index": block.index,
-                "Sender": transaction["sender"],
-                "Receiver": transaction["receiver"],
-                "Amount": transaction["amount"],
-                "Previous Hash": block.previous_hash
-            }
-            data.append(tx_data)
-    return pd.DataFrame(data)
+def show_alert(message, alert_type='info'):
+    if alert_type == 'info':
+        st.info(message)
+    elif alert_type == 'success':
+        st.success(message)
+    elif alert_type == 'warning':
+        st.warning(message)
+    elif alert_type == 'error':
+        st.error(message)
 
 
 class Transacao:
@@ -37,10 +33,9 @@ class Transacao:
 
         if submit:
             self.blockchain.add_block(self.blockchain.new_block(str(value)))
-            st.write("Operacão realizada.")
+            show_alert("Operacão realizada.", "success")
 
     def visualizar_historico(self):
-        st.write("Você escolheu Ver histórico.")
         st.table(self.blockchain.blockchain_to_dict())
 
 
